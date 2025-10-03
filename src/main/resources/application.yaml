@@ -1,0 +1,17 @@
+server: 
+    port: 8080
+spring:
+    application:
+        name: mealplanner
+    jpa:
+        hibernate:
+            ddl-auto: create-drop
+        database-platform: org.hibernate.dialect.H2Dialect
+        defer-datasource-initialization: true
+    datasource:
+        url: jdbc:h2:mem:mealplanner
+        driver-class-name: org.h2.Driver
+        username: sa
+        password:
+    h2:
+        console.enabled: true
