@@ -15,3 +15,7 @@ spring:
         password:
     h2:
         console.enabled: true
+okta:
+    oauth2:
+        issuer: https://dev-rtcs71fqxvr68wkj.us.auth0.com/
+        audience: https://whiskerandwhisk/api
