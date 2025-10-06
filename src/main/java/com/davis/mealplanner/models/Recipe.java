@@ -57,8 +57,4 @@ public class Recipe {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "recipe_id", referencedColumnName = "recipe_id")
     private List<Ingredient> ingredients;
-    
-    public boolean isArchived() {
-        return updatedRecipe != null;
-    };
 }
