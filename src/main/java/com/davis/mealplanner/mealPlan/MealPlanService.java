@@ -50,9 +50,7 @@ public class MealPlanService {
         MealPlan mealPlan = mealPlanRepository.findById(mealPlanId)
                 .orElseThrow(() -> new MealPlanIdNotFoundException(mealPlanId));
 
-        System.out.println(mealPlan.getCreatorEmail());
         if (!mealPlan.getCreatorEmail().equals(SecurityUtils.getEmailFromJwt())) {
-            System.out.println("THROWING EXCEPTION");
             throw new UnauthorizedAuthenticationException();
         }
 
