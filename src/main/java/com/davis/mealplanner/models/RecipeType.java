@@ -1,26 +1,40 @@
 package com.davis.mealplanner.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.davis.mealplanner.exceptions.IllegalRecipeTypeException;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
-@Entity
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Table(name = "recipe_type")
-public class RecipeType {
-    @Id
-    @Column(name = "recipe_type_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+public enum RecipeType {
+    BREAKFAST("Breakfast"),
+    LUNCH("Lunch"),
+    DINNER("Dinner"),
+    SNACK("Snack"),
+    SWEET_TREAT("Sweet Treat"),
+    SIDE("Side"),
+    FRUIT("Fruit"),
+    VEGETABLE("Vegatable");
 
-    @Column(name = "type", nullable = false)
-    private String type;
+    private final String value;
+
+    RecipeType(String value) {
+        this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+        return value;
+    }
+
+    @JsonCreator
+    public static RecipeType fromString(String s) {
+        if (s == null) return null;
+        try {
+            return RecipeType.valueOf(s.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            for (RecipeType t : RecipeType.values()) {
+                if (t.value.equalsIgnoreCase(s)) return t;
+            }
+            throw new IllegalRecipeTypeException(s);
+        }
+    }
 }

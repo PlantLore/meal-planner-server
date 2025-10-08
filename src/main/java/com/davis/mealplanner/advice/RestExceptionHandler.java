@@ -62,7 +62,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler{
 
     @ExceptionHandler(CurrentMealPlanNotFoundException.class)
     public ResponseEntity<String> handleCurrentMealPlanNotFoundException(HttpServletRequest request, CurrentMealPlanNotFoundException currentMealPlanNotFoundException) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(currentMealPlanNotFoundException.getMessage());
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(currentMealPlanNotFoundException.getMessage());
     }
 
     @ExceptionHandler(UnauthorizedAuthenticationException.class)

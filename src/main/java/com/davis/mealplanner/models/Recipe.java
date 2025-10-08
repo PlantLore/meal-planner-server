@@ -1,5 +1,6 @@
 package com.davis.mealplanner.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -9,7 +10,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -43,7 +46,8 @@ public class Recipe {
     @Column(name = "creator_email", nullable = false)
     private String creatorEmail;
     
-    @ManyToMany
+    @ElementCollection
+    @Enumerated(EnumType.STRING)
     private List<RecipeType> recipeTypes;
 
     @OneToOne
