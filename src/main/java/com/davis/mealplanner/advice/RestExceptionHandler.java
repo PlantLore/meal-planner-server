@@ -73,6 +73,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler{
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleGenericException(HttpServletRequest request, Exception exception) {
         String errorMessage = "Something Went Wrong";
+        System.out.println(exception);
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
     }

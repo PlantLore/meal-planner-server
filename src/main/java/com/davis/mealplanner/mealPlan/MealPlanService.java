@@ -35,7 +35,10 @@ public class MealPlanService {
     }
 
     public MealPlan upsertMealPlan(MealPlan mealPlan) throws UnauthorizedAuthenticationException {
-        MealPlan existingMealPlan = mealPlanRepository.findById(mealPlan.getId()).orElse(null);
+        MealPlan existingMealPlan = null;
+        if (mealPlan.getId() != null) {
+            existingMealPlan = mealPlanRepository.findById(mealPlan.getId()).orElse(null);
+        }
         if (existingMealPlan == null) {
             mealPlan.setCreatedOn(java.time.LocalDate.now());
             mealPlan.setCreatorEmail(SecurityUtils.getEmailFromJwt());

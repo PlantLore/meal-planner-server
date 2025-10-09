@@ -26,7 +26,7 @@ public class Meal {
     @Id
     @Column(name = "meal_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(name = "meal_type", nullable = false)
     @Enumerated(EnumType.STRING)

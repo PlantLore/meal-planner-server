@@ -181,3 +181,15 @@ INSERT INTO meal_recipe (leftovers, meal_id, meal_recipe_id, recipe_id) VALUES
     (true, 13, 13, 1),
     (false, 14, 14, 6),
     (false, 15, 15, 5);
+
+-- Ensure H2 identity/sequence values start after the highest seeded IDs
+-- so GENERATED ids for new inserts won't collide with the seeded primary keys.
+ALTER TABLE recipe ALTER COLUMN recipe_id RESTART WITH 9;
+ALTER TABLE step ALTER COLUMN step_id RESTART WITH 19;
+ALTER TABLE grocery ALTER COLUMN grocery_id RESTART WITH 15;
+ALTER TABLE ingredient ALTER COLUMN ingredient_id RESTART WITH 17;
+ALTER TABLE recipe_recipe_types ALTER COLUMN recipe_recipe_id RESTART WITH 9;
+ALTER TABLE meal_plan ALTER COLUMN meal_plan_id RESTART WITH 2;
+ALTER TABLE meal_plan_day ALTER COLUMN meal_plan_day_id RESTART WITH 4;
+ALTER TABLE meal ALTER COLUMN meal_id RESTART WITH 16;
+ALTER TABLE meal_recipe ALTER COLUMN meal_recipe_id RESTART WITH 16;

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RecipeLabel {
-    private int id;
+    private Integer id;
     private String label;
 
     RecipeLabel(Recipe recipe) {

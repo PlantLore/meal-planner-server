@@ -25,11 +25,12 @@ public enum MealType {
     @JsonCreator
     public static MealType fromString(String s) {
         if (s == null) return null;
+        String normalized = s.trim().replaceAll("[\\s-]+", "_").toUpperCase();
         try {
-            return MealType.valueOf(s.toUpperCase());
+            return MealType.valueOf(normalized);
         } catch (IllegalArgumentException e) {
             for (MealType t : MealType.values()) {
-                if (t.value.equalsIgnoreCase(s)) return t;
+                if (t.value.equalsIgnoreCase(s.trim())) return t;
             }
             throw new IllegalMealTypeException(s);
         }

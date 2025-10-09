@@ -11,7 +11,7 @@ public enum GrocerySection {
     SEAFOOD("Seafood"),
     BAKERY("Bakery"),
     FROZEN_FOODS("Frozen Foods"),
-    DAIRY("Diary"),
+    DAIRY("Dairy"),
     INNER_AISLES("Inner Aisles"),
     OTHER("Other");
 
@@ -29,11 +29,12 @@ public enum GrocerySection {
     @JsonCreator
     public static GrocerySection fromString(String s) {
         if (s == null) return null;
+        String normalized = s.trim().replaceAll("[\\s-]+", "_").toUpperCase();
         try {
-            return GrocerySection.valueOf(s.toUpperCase());
+            return GrocerySection.valueOf(normalized);
         } catch (IllegalGrocerySectionException e) {
             for (GrocerySection t : GrocerySection.values()) {
-                if (t.value.equalsIgnoreCase(s)) return t;
+                if (t.value.equalsIgnoreCase(s.trim())) return t;
             }
             throw new IllegalGrocerySectionException(s);
         }

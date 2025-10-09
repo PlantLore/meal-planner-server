@@ -25,7 +25,7 @@ public class MealPlanDay {
     @Id
     @Column(name = "meal_plan_day_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(name = "day_date", nullable = false)
     private LocalDate day;

@@ -24,7 +24,7 @@ public class GroceryList {
     @Id
     @Column(name = "grocery_list_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(name = "creator_email", nullable = false)
     private String creatorEmail;

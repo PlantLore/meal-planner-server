@@ -28,11 +28,12 @@ public enum RecipeType {
     @JsonCreator
     public static RecipeType fromString(String s) {
         if (s == null) return null;
+        String normalized = s.trim().replaceAll("[\\s-]+", "_").toUpperCase();
         try {
-            return RecipeType.valueOf(s.toUpperCase());
+            return RecipeType.valueOf(normalized);
         } catch (IllegalArgumentException e) {
             for (RecipeType t : RecipeType.values()) {
-                if (t.value.equalsIgnoreCase(s)) return t;
+                if (t.value.equalsIgnoreCase(s.trim())) return t;
             }
             throw new IllegalRecipeTypeException(s);
         }
