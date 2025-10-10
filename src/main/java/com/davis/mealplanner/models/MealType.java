@@ -5,35 +5,34 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum MealType {
-    BREAKFAST,
-    LUNCH,
-    DINNER,
-    SNACK,
-    SWEET_TREAT;
+    BREAKFAST("Breakfast"),
+    LUNCH("Lunch"),
+    DINNER("Dinner"),
+    SNACK("Snack"),
+    SWEET_TREAT("Sweet Treat");
+
+    private final String value;
+
+    MealType(String value) {
+        this.value = value;
+    }
 
     @JsonValue
-    public String toValue() {
-        return this.name();
+    public String getValue() {
+        return value;
     }
 
     @JsonCreator
-    public static MealType fromString(String value) {
-        if (value == null) return null;
+    public static MealType fromString(String s) {
+        if (s == null) return null;
+        String normalized = s.trim().replaceAll("[\\s-]+", "_").toUpperCase();
         try {
-            return MealType.valueOf(value.toUpperCase());
-        } catch (IllegalArgumentException ex) {
-            throw new IllegalMealTypeException(value);
-        }
-    }
-
-    public String toDTOValue() {
-        switch(this) {
-            case BREAKFAST: return "Breakfast";
-            case LUNCH: return "Lunch";
-            case DINNER: return "Dinner";
-            case SNACK: return "Snack";
-            case SWEET_TREAT: return "Dessert";
-            default: throw new IllegalMealTypeException(this.name());
+            return MealType.valueOf(normalized);
+        } catch (IllegalArgumentException e) {
+            for (MealType t : MealType.values()) {
+                if (t.value.equalsIgnoreCase(s.trim())) return t;
+            }
+            throw new IllegalMealTypeException(s);
         }
     }
 }

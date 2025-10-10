@@ -19,7 +19,7 @@ public class Step {
     @Id
     @Column(name = "step_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(name = "ordinal", nullable = false)
     private int ordinal;

@@ -26,7 +26,7 @@ public class GroceryListSection {
     @Id
     @Column(name = "grocery_list_section_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(name = "grocery_section", nullable = false)
     @Enumerated(EnumType.STRING)

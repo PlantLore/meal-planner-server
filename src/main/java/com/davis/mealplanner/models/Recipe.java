@@ -9,7 +9,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -26,7 +28,7 @@ public class Recipe {
     @Id
     @Column(name = "recipe_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(name = "title", nullable = false)
     private String title;
@@ -43,7 +45,8 @@ public class Recipe {
     @Column(name = "creator_email", nullable = false)
     private String creatorEmail;
     
-    @ManyToMany
+    @ElementCollection
+    @Enumerated(EnumType.STRING)
     private List<RecipeType> recipeTypes;
 
     @OneToOne
@@ -57,8 +60,4 @@ public class Recipe {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "recipe_id", referencedColumnName = "recipe_id")
     private List<Ingredient> ingredients;
-    
-    public boolean isArchived() {
-        return updatedRecipe != null;
-    };
 }

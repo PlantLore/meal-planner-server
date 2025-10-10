@@ -14,7 +14,7 @@ INSERT INTO recipe (archived_recipe_id, calories, recipe_id, servings, creator_e
         2,
         2,
         'moberlies@gmail.com',
-        '',
+        'https://food.fnr.sndimg.com/content/dam/images/food/fullset/2022/02/16/0/FNM_030122-Homemade-Bagels_s4x3.jpg.rend.hgtvcom.1280.1280.suffix/1645023418907.webp',
         'Bagels with Cream Cheese'
     ),
     (
@@ -23,7 +23,7 @@ INSERT INTO recipe (archived_recipe_id, calories, recipe_id, servings, creator_e
         3,
         1,
         'kennethdavis391@gmail.com',
-        '',
+        'https://www.spendwithpennies.com/wp-content/uploads/2022/09/Avocado-Toast-SpendWithPennies-1.jpg',
         'Avocado Toast'
     ),
     (
@@ -32,7 +32,7 @@ INSERT INTO recipe (archived_recipe_id, calories, recipe_id, servings, creator_e
         4,
         3,
         'kennethdavis391@gmail.com',
-        '',
+        'https://www.southernliving.com/thmb/UW4kKKL-_M3WgP7pkL6Pb6lwcgM=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Ham_Sandwich_011-1-49227336bc074513aaf8fdbde440eafe.jpg',
         'Ham Sandwiches'
     ),
     (
@@ -50,7 +50,7 @@ INSERT INTO recipe (archived_recipe_id, calories, recipe_id, servings, creator_e
         6,
         2,
         'kennethdavis391@gmail.com',
-        '',
+        'https://cdn.loveandlemons.com/wp-content/uploads/2025/06/fruit-salad.jpg',
         'Fruit Salad'
     ),
     (
@@ -59,7 +59,7 @@ INSERT INTO recipe (archived_recipe_id, calories, recipe_id, servings, creator_e
         7,
         2,
         'kennethdavis391@gmail.com',
-        '',
+        'https://cdn.loveandlemons.com/wp-content/uploads/2025/06/fruit-salad.jpg',
         'Fruit Salad'
     ),
     (
@@ -126,29 +126,19 @@ INSERT INTO ingredient (grocery_id, ingredient_id, recipe_id, quantity, unit) VA
     (10, 15, 7, 50, 'grams'),
     (14, 16, 8, 1, 'package');
 
-INSERT INTO recipe_type (recipe_type_id, type) VALUES
-    (1, 'Breakfast'),
-    (2, 'Lunch'),
-    (3, 'Dinner'),
-    (4, 'Snack'),
-    (5, 'Sweet Treat'),
-    (6, 'Side'),
-    (7, 'Fruit'),
-    (8, 'Vegetable');
-
-INSERT INTO recipe_recipe_types (recipe_recipe_id, recipe_types_recipe_type_id) VALUES
-    (1, 3),
-    (2, 1),
-    (3, 1),
-    (4, 2),
-    (5, 5),
-    (6, 7),
-    (7, 7),
-    (6, 4),
-    (6, 6),
-    (7, 4),
-    (7, 6),
-    (8, 6);
+INSERT INTO recipe_recipe_types (recipe_recipe_id, recipe_types) VALUES
+    (1, 'DINNER'),
+    (2, 'BREAKFAST'),
+    (3, 'BREAKFAST'),
+    (4, 'LUNCH'),
+    (5, 'SWEET_TREAT'),
+    (6, 'FRUIT'),
+    (6, 'SNACK'),
+    (6, 'SIDE'),
+    (7, 'FRUIT'),
+    (7, 'SNACK'),
+    (7, 'SIDE'),
+    (8, 'SIDE');
 
 INSERT INTO meal_plan (created_on, end_date, meal_plan_id, start_date, creator_email) VALUES
     (DATEADD('DAY', -1, CURRENT_DATE), DATEADD('DAY', 1, CURRENT_DATE), 1, DATEADD('DAY', -1, CURRENT_DATE), 'kennethdavis391@gmail.com');
@@ -191,3 +181,15 @@ INSERT INTO meal_recipe (leftovers, meal_id, meal_recipe_id, recipe_id) VALUES
     (true, 13, 13, 1),
     (false, 14, 14, 6),
     (false, 15, 15, 5);
+
+-- Ensure H2 identity/sequence values start after the highest seeded IDs
+-- so GENERATED ids for new inserts won't collide with the seeded primary keys.
+ALTER TABLE recipe ALTER COLUMN recipe_id RESTART WITH 9;
+ALTER TABLE step ALTER COLUMN step_id RESTART WITH 19;
+ALTER TABLE grocery ALTER COLUMN grocery_id RESTART WITH 15;
+ALTER TABLE ingredient ALTER COLUMN ingredient_id RESTART WITH 17;
+ALTER TABLE recipe_recipe_types ALTER COLUMN recipe_recipe_id RESTART WITH 9;
+ALTER TABLE meal_plan ALTER COLUMN meal_plan_id RESTART WITH 2;
+ALTER TABLE meal_plan_day ALTER COLUMN meal_plan_day_id RESTART WITH 4;
+ALTER TABLE meal ALTER COLUMN meal_id RESTART WITH 16;
+ALTER TABLE meal_recipe ALTER COLUMN meal_recipe_id RESTART WITH 16;

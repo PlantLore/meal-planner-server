@@ -19,7 +19,7 @@ public class AddedGroceryListItem {
     @Id
     @Column(name = "added_grocery_list_item_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(name = "name", nullable = false)
     private String name;

@@ -21,7 +21,7 @@ public class MealRecipe {
     @Id
     @Column(name = "meal_recipe_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(name = "leftovers", nullable = false)
     private boolean leftovers;
